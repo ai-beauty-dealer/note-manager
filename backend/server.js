@@ -19,10 +19,15 @@ const corsOptions = {
 };
 
 app.use(cors(corsOptions));
+app.options('*', cors(corsOptions)); // Enable pre-flight for all routes
 app.use(bodyParser.json());
 
 // Auth Middleware
 app.use((req, res, next) => {
+    // Skip auth for OPTIONS preflight requests
+    if (req.method === 'OPTIONS') {
+        return next();
+    }
     const apiKey = req.headers['x-api-key'];
     if (API_KEY && apiKey !== API_KEY) {
         return res.status(401).json({ error: 'Unauthorized' });
