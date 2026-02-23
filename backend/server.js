@@ -12,7 +12,13 @@ const PORT = process.env.PORT || 5005;
 const API_KEY = process.env.API_KEY;
 const DATA_FILE = path.join(__dirname, '../data/articles.json');
 
-app.use(cors());
+const corsOptions = {
+    origin: '*',
+    methods: 'GET,POST,PUT,DELETE',
+    allowedHeaders: ['Content-Type', 'x-api-key', 'ngrok-skip-browser-warning']
+};
+
+app.use(cors(corsOptions));
 app.use(bodyParser.json());
 
 // Auth Middleware

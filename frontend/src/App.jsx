@@ -14,7 +14,10 @@ function App() {
   const fetchArticles = async () => {
     try {
       const res = await fetch(`${API_BASE_URL}/api/articles`, {
-        headers: { 'x-api-key': API_KEY }
+        headers: {
+          'x-api-key': API_KEY,
+          'ngrok-skip-browser-warning': 'true'
+        }
       })
       const data = await res.json()
       setArticles(data.sort((a, b) => new Date(b.created_at) - new Date(a.created_at)))
@@ -39,7 +42,8 @@ function App() {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          'x-api-key': API_KEY
+          'x-api-key': API_KEY,
+          'ngrok-skip-browser-warning': 'true'
         },
         body: JSON.stringify({ title, draft_url: draftUrl, publish_at: publishAt }),
       })
@@ -59,7 +63,10 @@ function App() {
     try {
       await fetch(`${API_BASE_URL}/api/articles/${id}`, {
         method: 'DELETE',
-        headers: { 'x-api-key': API_KEY }
+        headers: {
+          'x-api-key': API_KEY,
+          'ngrok-skip-browser-warning': 'true'
+        }
       })
       fetchArticles()
     } catch (err) {
@@ -71,7 +78,10 @@ function App() {
     try {
       await fetch(`${API_BASE_URL}/api/articles/${id}/post`, {
         method: 'POST',
-        headers: { 'x-api-key': API_KEY }
+        headers: {
+          'x-api-key': API_KEY,
+          'ngrok-skip-browser-warning': 'true'
+        }
       })
       alert('Post triggered!')
       fetchArticles()
